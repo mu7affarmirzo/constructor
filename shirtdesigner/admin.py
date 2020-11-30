@@ -1,19 +1,23 @@
 from django.contrib import admin
-from .models import (
-    FabricModel,
-    StyleTypeModel,
-    SleeveTypeModel,
-    ShirtSleeveModel,
-    YokeTypeModel,
-    YokeModel,
-    ShoulderTypeModel,
-    ShoulderModel,
-    BackDetailsTypeModel,
-    BackDetailsModel,
-    BottomCutTypeModel,
-    BottomCutModel, CollarTypeModel,
-    CollarModel, CuffTypeModel, CuffModel, PlacketTypeModel, PlacketModel
-)
+from .models import *
+# from .models import (
+#     FabricModel,
+#     StyleTypeModel,
+#     SleeveTypeModel,
+#     ShirtSleeveModel,
+#     YokeTypeModel,
+#     YokeModel,
+#     ShoulderTypeModel,
+#     ShoulderModel,
+#     BackDetailsTypeModel,
+#     BackDetailsModel,
+#     BottomCutTypeModel,
+#     BottomCutModel, CollarTypeModel,
+#     CollarModel, CuffTypeModel, CuffModel, PlacketTypeModel, PlacketModel,
+#     CollarButtonModel, CuffButtonModel, PlacketButtonModel,
+#     CollarThreadModel, CuffThreadModel, PlacketThreadModel
+#
+# )
 # Register your models here.
 
 admin.site.register(FabricModel)
@@ -34,3 +38,9 @@ admin.site.register(CuffTypeModel)
 admin.site.register(CuffModel)
 admin.site.register(PlacketTypeModel)
 admin.site.register(PlacketModel)
+admin.site.register(CollarButtonModel)
+admin.site.register(CuffButtonModel)
+admin.site.register(PlacketButtonModel)
+admin.site.register(CollarThreadModel)
+admin.site.register(CuffThreadModel)
+admin.site.register(PlacketThreadModel)
