@@ -5,6 +5,7 @@ def upload_location(instance, filename):
         author_id=str(instance.author.id), title=str(instance.title), filename=filename)
     return file_path
 
+
 class FabricModel(models.Model):
     fabric = models.CharField(max_length=200, db_index=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -218,3 +219,23 @@ class PlacketThreadModel(models.Model):
 
     def __str__(self):
         return f'{self.name} {self.placketthr}'
+
+
+
+class SideBarModel(models.Model):
+    icon = models.ImageField(upload_to=upload_location, null=True, blank=True)
+    title = models.CharField(max_length=250, blank=True, null=True)
+    url = models.URLField(null=True, blank=True)
+    sub_stat = models.BooleanField(null=True,blank=True, default=True)
+    
+    search_stat = models.BooleanField(null=True,blank=True, , default=False)
+
+class SubSideBarModel(models.Model):
+    globalmenu = models.ForeignKey(SideBarModel, blank=True, null=True, on_delete=models.CASCADE)
+    icon = models.ImageField(upload_to=upload_location, null=True, blank=True)
+    title = models.CharField(max_length=250, blank=True, null=True)
+    url = models.URLField(null=True, blank=True)
+    sub_stat = models.BooleanField(null=True,blank=True, default=False)
+    search_url = models.URLField(null=True, blank=True)
+    
+    search_stat = models.BooleanField(null=True,blank=True, default=False)
