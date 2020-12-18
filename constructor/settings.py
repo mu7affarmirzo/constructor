@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'modeltranslation',
     'rest_framework',
     'ckeditor',
-    'whitenoise.runserver_nostatic',
+    # 'whitenoise.runserver_nostatic',
 
     'django.contrib.admin',
     'django.contrib.auth',

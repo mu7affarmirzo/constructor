@@ -231,6 +231,9 @@ class SideBarModel(models.Model):
     search_stat = models.BooleanField(null=True, blank=True, default=False)
     related_menu_stat = models.BooleanField(null=True, blank=True, default=True)
 
+    def __str__(self):
+        return str(self.title)
+
 class SubSideBarModel(models.Model):
     global_menu = models.ForeignKey(SideBarModel, blank=True, null=True, on_delete=models.CASCADE)
     icon = models.ImageField(upload_to=upload_location, null=True, blank=True)
@@ -241,6 +244,9 @@ class SubSideBarModel(models.Model):
     
     search_stat = models.BooleanField(null=True, blank=True, default=False)
 
+    def __str__(self):
+        return str(self.title)
+
 class StyleSideBarModel(models.Model):
     sub_side = models.ForeignKey(SubSideBarModel, blank=True, null=True, on_delete=models.CASCADE)
     icon = models.ImageField(upload_to=upload_location, null=True, blank=True)
@@ -250,3 +256,6 @@ class StyleSideBarModel(models.Model):
     search_url = models.CharField(max_length=250, blank=True, null=True)
 
     search_stat = models.BooleanField(null=True, blank=True, default=False)
+
+    def __str__(self):
+        return str(self.title)
