@@ -1,4 +1,6 @@
 from django.contrib import admin
+from modeltranslation.admin import TranslationAdmin
+
 from .models import *
 # from .models import (
 #     FabricModel,
@@ -44,3 +46,18 @@ admin.site.register(PlacketButtonModel)
 admin.site.register(CollarThreadModel)
 admin.site.register(CuffThreadModel)
 admin.site.register(PlacketThreadModel)
+# admin.site.register(SideBarModel)
+# admin.site.register(SubSideBarModel)
+# admin.site.register(StyleSideBarModel)
+
+class SideBarAdmin(TranslationAdmin):
+    pass
+admin.site.register(SideBarModel, SideBarAdmin)
+
+class SubSideBarAdmin(TranslationAdmin):
+    pass
+admin.site.register(SubSideBarModel, SubSideBarAdmin)
+
+class StyleSideBarAdmin(TranslationAdmin):
+    pass
+admin.site.register(StyleSideBarModel, StyleSideBarAdmin)

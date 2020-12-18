@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
-import os
+import os, django
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -31,6 +31,11 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'modeltranslation',
+    'rest_framework',
+    'ckeditor',
+    'whitenoise.runserver_nostatic',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,6 +50,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -115,14 +121,55 @@ USE_L10N = True
 
 USE_TZ = True
 
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.2/howto/static-files/
+gettext = lambda s: s
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-    # os.path.join(BASE_DIR, 'media'),
+LANGUAGE_CODE = 'ru'
+
+EXTRA_LANG_INFO = {
+    'uz': {
+        'bidi': False,
+        'code': 'uz',
+        'name': 'Uzbek',
+        'name_local': 'Uzbek',
+    },
+}
+LANGUAGES = (
+    ('ru', gettext('Russian')),
+    ('en', gettext('English')),
+    ('uz', gettext('Uzbek')),
+)
+
+django.conf.locale.LANG_INFO.update(EXTRA_LANG_INFO)
+
+MODELTRANSLATION_LANGUAGES = ('ru', 'en', 'uz')
+MODELTRANSLATION_FALLBACK_LANGUAGES = ('ru', 'en')
+
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale')
 ]
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.1/howto/static-files/
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_IMAGE_BACKEND = 'pillow'
+CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
+
+CKEDITOR_CONFIGS = {
+    'default': {
+    'toolbar': 'None',
+
+    },
+}
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+    # os.path.join(BASE_DIR, "media"),
+]
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_cdn')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media_cdn')
+

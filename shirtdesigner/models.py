@@ -225,17 +225,28 @@ class PlacketThreadModel(models.Model):
 class SideBarModel(models.Model):
     icon = models.ImageField(upload_to=upload_location, null=True, blank=True)
     title = models.CharField(max_length=250, blank=True, null=True)
-    url = models.URLField(null=True, blank=True)
-    sub_stat = models.BooleanField(null=True,blank=True, default=True)
-    
-    search_stat = models.BooleanField(null=True,blank=True, , default=False)
+    url = models.CharField(max_length=250, blank=True, null=True)
+    sub_stat = models.BooleanField(null=True, blank=True, default=True)
+    search_url = models.URLField(null=True, blank=True)
+    search_stat = models.BooleanField(null=True, blank=True, default=False)
+    related_menu_stat = models.BooleanField(null=True, blank=True, default=True)
 
 class SubSideBarModel(models.Model):
-    globalmenu = models.ForeignKey(SideBarModel, blank=True, null=True, on_delete=models.CASCADE)
+    global_menu = models.ForeignKey(SideBarModel, blank=True, null=True, on_delete=models.CASCADE)
     icon = models.ImageField(upload_to=upload_location, null=True, blank=True)
     title = models.CharField(max_length=250, blank=True, null=True)
-    url = models.URLField(null=True, blank=True)
-    sub_stat = models.BooleanField(null=True,blank=True, default=False)
+    url = models.CharField(max_length=250, blank=True, null=True)
+    sub_stat = models.BooleanField(null=True, blank=True, default=False)
     search_url = models.URLField(null=True, blank=True)
     
-    search_stat = models.BooleanField(null=True,blank=True, default=False)
+    search_stat = models.BooleanField(null=True, blank=True, default=False)
+
+class StyleSideBarModel(models.Model):
+    sub_side = models.ForeignKey(SubSideBarModel, blank=True, null=True, on_delete=models.CASCADE)
+    icon = models.ImageField(upload_to=upload_location, null=True, blank=True)
+    title = models.CharField(max_length=250, blank=True, null=True)
+    url = models.CharField(max_length=250, blank=True, null=True)
+    sub_stat = models.BooleanField(null=True, blank=True, default=False)
+    search_url = models.CharField(max_length=250, blank=True, null=True)
+
+    search_stat = models.BooleanField(null=True, blank=True, default=False)
