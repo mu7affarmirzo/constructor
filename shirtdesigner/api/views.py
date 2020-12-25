@@ -7,12 +7,19 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.generics import ListAPIView
 # from rest_framework.filters import SearchFilter, OrderingFilter
 
-from shirtdesigner.models import SideBarModel
-from shirtdesigner.api.serializers import MenuSerializer
+from shirtdesigner.models import SideBarModel, FabricModel
+from shirtdesigner.api.serializers import MenuSerializer, FabricSerializer
 
 class MenuListView(ListAPIView):
     queryset = SideBarModel.objects.all()
     serializer_class = MenuSerializer
+    pagination_class = PageNumberPagination
+    # filter_backends = (SearchFilter, OrderingFilter)
+    # search_fields = ('title', 'body', 'author__username')
+
+class FabricListView(ListAPIView):
+    queryset = FabricModel.objects.all()
+    serializer_class = FabricSerializer
     pagination_class = PageNumberPagination
     # filter_backends = (SearchFilter, OrderingFilter)
     # search_fields = ('title', 'body', 'author__username')

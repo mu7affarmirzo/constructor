@@ -7,10 +7,31 @@ def upload_location(instance, filename):
 
 
 class FabricModel(models.Model):
+    WORST = '1'
+    BAD = '2'
+    ADEQUATE = '3'
+    GOOD = '4'
+    EXCELLENT = '5'
+    SELECT_CHOICES = [
+        (WORST, '1'),
+        (BAD, '2'),
+        (ADEQUATE, '3'),
+        (GOOD, '4'),
+        (EXCELLENT, '5'),
+    ]
     fabric = models.CharField(max_length=200, db_index=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     slug = models.SlugField(max_length=200, unique=True)
     index = models.BooleanField(default=False)
+
+    colour = models.CharField(max_length=500, null=True, blank=True)
+    pattern = models.CharField(max_length=500, null=True, blank=True)
+    season = models.CharField(max_length=500, null=True, blank=True)
+    composition = models.CharField(max_length=500, null=True, blank=True)
+    fineness = models.CharField(max_length=2, choices=SELECT_CHOICES, default=GOOD,)
+    weight = models.CharField(max_length=2, choices=SELECT_CHOICES, default=GOOD,)
+    weave = models.CharField(max_length=2, choices=SELECT_CHOICES, default=GOOD,)
+
 
     class Meta:
         ordering = ('price', )
@@ -235,7 +256,7 @@ class SideBarModel(models.Model):
         return str(self.title)
 
 class SubSideBarModel(models.Model):
-    global_menu = models.ForeignKey(SideBarModel, blank=True, null=True, on_delete=models.CASCADE)
+    global_menu = models.ForeignKey(SideBarModel, blank=True, null=True, on_delete=models.CASCADE, related_name='sub_bar')
     icon = models.ImageField(upload_to=upload_location, null=True, blank=True)
     title = models.CharField(max_length=250, blank=True, null=True)
     url = models.CharField(max_length=250, blank=True, null=True)

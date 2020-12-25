@@ -1,12 +1,18 @@
 from rest_framework import serializers
-from shirtdesigner.models import SubSideBarModel, SideBarModel, StyleSideBarModel
+from shirtdesigner.models import SubSideBarModel, SideBarModel, StyleSideBarModel, FabricModel
 
 import os
 from django.conf import settings
 from django.core.files.storage import default_storage
 from django.core.files.storage import FileSystemStorage
 
+class SubSideSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SubSideBarModel
+        fields = '__all__'
+
 class MenuSerializer(serializers.ModelSerializer):
+    sub_bar = SubSideSerializer(many=True)
     class Meta:
         model = SideBarModel
         fields = [
@@ -16,4 +22,11 @@ class MenuSerializer(serializers.ModelSerializer):
             'search_url',
             'search_stat',
             'related_menu_stat',
+            'sub_bar',
         ]
+
+
+class FabricSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FabricModel
+        fields = '__all__'
