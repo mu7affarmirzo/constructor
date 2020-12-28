@@ -24,7 +24,6 @@ class MenuSerializer(serializers.ModelSerializer):
             'search_stat',
             'search_url',
             'related_menu_stat',
-
         ]
 
 
