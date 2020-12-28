@@ -18,11 +18,13 @@ class MenuSerializer(serializers.ModelSerializer):
         fields = [
             'icon',
             'title_ru', 'title_en', 'title_uz',
+            'url',
             'sub_stat',
-            'search_url',
-            'search_stat',
-            'related_menu_stat',
             'sub_bar',
+            'search_stat',
+            'search_url',
+            'related_menu_stat',
+
         ]
 
 
