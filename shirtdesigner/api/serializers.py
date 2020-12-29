@@ -6,10 +6,26 @@ from django.conf import settings
 from django.core.files.storage import default_storage
 from django.core.files.storage import FileSystemStorage
 
+class StyleSideBarSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StyleSideBarModel
+        fields = '__all__'
+
 class SubSideSerializer(serializers.ModelSerializer):
+    sub_side = StyleSideBarSerializer(many=True)
     class Meta:
         model = SubSideBarModel
-        fields = '__all__'
+        fields = [
+            'icon',
+            'title_ru', 'title_en', 'title_uz',
+            'url',
+            'sub_stat',
+            # 'sub_bar',
+            'search_stat',
+            'search_url',
+            # 'related_menu_stat',
+            'sub_side'
+        ]
 
 class MenuSerializer(serializers.ModelSerializer):
     sub_bar = SubSideSerializer(many=True)

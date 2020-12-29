@@ -262,21 +262,21 @@ class SubSideBarModel(models.Model):
     url = models.CharField(max_length=250, blank=True, null=True)
     sub_stat = models.BooleanField(null=True, blank=True, default=False)
     search_url = models.URLField(null=True, blank=True)
-    
     search_stat = models.BooleanField(null=True, blank=True, default=False)
+    related_menu = models.ForeignKey(SideBarModel, blank=True, null=True, on_delete=models.CASCADE, related_name='related_menu')
 
     def __str__(self):
         return str(self.title)
 
 class StyleSideBarModel(models.Model):
-    sub_side = models.ForeignKey(SubSideBarModel, blank=True, null=True, on_delete=models.CASCADE)
+    sub_side = models.ForeignKey(SubSideBarModel, blank=True, null=True, on_delete=models.CASCADE, related_name='sub_side')
     icon = models.ImageField(upload_to=upload_location, null=True, blank=True)
     title = models.CharField(max_length=250, blank=True, null=True)
     url = models.CharField(max_length=250, blank=True, null=True)
     sub_stat = models.BooleanField(null=True, blank=True, default=False)
     search_url = models.CharField(max_length=250, blank=True, null=True)
-
     search_stat = models.BooleanField(null=True, blank=True, default=False)
+    related_menu = models.ForeignKey(SubSideBarModel, blank=True, null=True, on_delete=models.CASCADE, related_name='related_style' )
 
     def __str__(self):
         return str(self.title)
