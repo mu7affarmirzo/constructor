@@ -265,6 +265,8 @@ class SubSideBarModel(models.Model):
     search_stat = models.BooleanField(null=True, blank=True, default=False)
     related_menu = models.ForeignKey(SideBarModel, blank=True, null=True, on_delete=models.CASCADE, related_name='related_menu')
 
+    # class Meta:
+    #     app_label = 'tester_label'
     def __str__(self):
         return str(self.title)
 
@@ -280,3 +282,6 @@ class StyleSideBarModel(models.Model):
 
     def __str__(self):
         return str(self.title)
+    # 
+    # class Meta:
+    #     app_label = 'tester_label'

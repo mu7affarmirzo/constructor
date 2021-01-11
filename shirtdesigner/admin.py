@@ -1,6 +1,7 @@
 from django.contrib import admin
 from modeltranslation.admin import TranslationAdmin
 
+
 from .models import *
 
 admin.site.register(FabricModel)
@@ -28,7 +29,12 @@ admin.site.register(FabricModel)
 # admin.site.register(CuffThreadModel)
 # admin.site.register(PlacketThreadModel)
 
-class SideBarAdmin(TranslationAdmin):
+# class SideBarCustomAdmin(admin.ModelAdmin):
+#     list_display = ('title_ru')
+
+class SideBarCustomAdmin(admin.ModelAdmin):
+    list_display = ('title_ru', 'title_en','title_uz',)
+class SideBarAdmin(SideBarCustomAdmin, TranslationAdmin):
     pass
 admin.site.register(SideBarModel, SideBarAdmin)
 
