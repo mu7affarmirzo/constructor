@@ -1,8 +1,8 @@
 from django.db import models
 
 def upload_location(instance, filename):
-    file_path = 'shirt_designer/{author_id}/{title}-{filename}'.format(
-        author_id=str(instance.author.id), title=str(instance.title), filename=filename)
+    file_path = 'shirt_designer/{title}-{filename}'.format(
+        title=str(instance.__class__.__name__), filename=filename)
     return file_path
 
 
@@ -48,6 +48,7 @@ class StyleTypeModel(models.Model):
         return self.type
 
 class SleeveTypeModel(models.Model):
+    sleeve_style = models.ForeignKey('SubSideBarModel', related_name='sleeves_here', on_delete=models.CASCADE, null=True, blank=True)
     type = models.CharField(max_length=50, blank=True, null=True)
 
     def __str__(self):
@@ -57,12 +58,16 @@ class ShirtSleeveModel(models.Model):
     fabric = models.ForeignKey(FabricModel,
                               related_name='sleeve', blank=True, null=True,
                               on_delete=models.CASCADE)
-    type = models.ForeignKey(SleeveTypeModel,
-                               related_name='sleevetype', blank=True, null=True,
-                               on_delete=models.CASCADE)
+    # type = models.ForeignKey(SleeveTypeModel,
+    #                            related_name='sleevetype', blank=True, null=True,
+    #                            on_delete=models.CASCADE)
+    sleeve_style = models.ForeignKey('SubSideBarModel', related_name='sleeves_type', on_delete=models.CASCADE, null=True, blank=True)
+    long_img = models.ImageField(upload_to=upload_location, null=True, blank=True)
+    short_img = models.ImageField(upload_to=upload_location, null=True, blank=True)
+    short_with_ibbon_img = models.ImageField(upload_to=upload_location, null=True, blank=True)
 
     def __str__(self):
-        return f'{self.fabric} {self.type}'
+        return f'{self.fabric} {self.sleeve_style}'
 
 class YokeTypeModel(models.Model):
     type = models.CharField(max_length=50, blank=True, null=True)
@@ -74,9 +79,11 @@ class YokeModel(models.Model):
     fabric = models.ForeignKey(FabricModel,
                               related_name='yoke', blank=True, null=True,
                               on_delete=models.CASCADE)
-    type = models.ForeignKey(YokeTypeModel,
+    type = models.ForeignKey('SubSideBarModel',
                                related_name='yoketype', blank=True, null=True,
                                on_delete=models.CASCADE)
+
+    yoke_img = models.ImageField(upload_to=upload_location, null=True, blank=True)
 
     def __str__(self):
         return f'{self.fabric} {self.type}'
@@ -108,9 +115,10 @@ class BackDetailsModel(models.Model):
     fabric = models.ForeignKey(FabricModel,
                               related_name='backdetails', blank=True, null=True,
                               on_delete=models.CASCADE)
-    type = models.ForeignKey(BackDetailsTypeModel,
+    type = models.ForeignKey('SubSideBarModel',
                               related_name='backtype', blank=True, null=True,
                               on_delete=models.CASCADE)
+    back_style_img = models.ImageField(upload_to=upload_location, null=True, blank=True)
 
     def __str__(self):
         return f'{self.fabric} {self.type}'
@@ -125,9 +133,11 @@ class BottomCutModel(models.Model):
     fabric = models.ForeignKey(FabricModel,
                               related_name='bottom', blank=True, null=True,
                               on_delete=models.CASCADE)
-    type = models.ForeignKey(BottomCutTypeModel,
+    type = models.ForeignKey('SubSideBarModel',
                               related_name='bottomtype', blank=True, null=True,
                               on_delete=models.CASCADE)
+
+    bottomcut_img = models.ImageField(upload_to=upload_location, null=True, blank=True)
 
     def __str__(self):
         return f'{self.fabric} {self.type}'
@@ -138,17 +148,33 @@ class CollarTypeModel(models.Model):
     def __str__(self):
         return self.type
 
+# class CollarModel(models.Model):
+#     fabric = models.ForeignKey(FabricModel,
+#                               related_name='collar', blank=True, null=True,
+#                               on_delete=models.CASCADE)
+#     type = models.ForeignKey(CollarTypeModel,
+#                                related_name='collartype', blank=True, null=True,
+#                                on_delete=models.CASCADE)
+#
+#
+#     def __str__(self):
+#         return f'{self.fabric} {self.type}'
+
 class CollarModel(models.Model):
     fabric = models.ForeignKey(FabricModel,
                               related_name='collar', blank=True, null=True,
                               on_delete=models.CASCADE)
-    type = models.ForeignKey(CollarTypeModel,
+    type = models.ForeignKey('SubSideBarModel',
                                related_name='collartype', blank=True, null=True,
                                on_delete=models.CASCADE)
 
+    collarname = models.CharField(max_length=400, null=True, blank=True)
+    collar_img = models.ImageField(upload_to=upload_location, null=True, blank=True)
+    back_collar_img = models.ImageField(upload_to=upload_location, null=True, blank=True)
 
     def __str__(self):
-        return f'{self.fabric} {self.type}'
+        return f'{self.fabric} {self.collarname}'
+
 
 class CuffTypeModel(models.Model):
     type = models.CharField(max_length=50, blank=True, null=True)
@@ -160,9 +186,13 @@ class CuffModel(models.Model):
     fabric = models.ForeignKey(FabricModel,
                               related_name='cuff', blank=True, null=True,
                               on_delete=models.CASCADE)
-    type = models.ForeignKey(CuffTypeModel,
+    type = models.ForeignKey('SubSideBarModel',
                                related_name='cufftype', blank=True, null=True,
                                on_delete=models.CASCADE)
+
+    typename = models.CharField(max_length=400, null=True, blank=True)
+    cuff_img = models.ImageField(upload_to=upload_location, null=True, blank=True)
+    back_cuff_img = models.ImageField(upload_to=upload_location, null=True, blank=True)
 
     def __str__(self):
         return f'{self.fabric} {self.type}'
