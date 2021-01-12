@@ -207,12 +207,26 @@ class PlacketModel(models.Model):
     fabric = models.ForeignKey(FabricModel,
                               related_name='placket', blank=True, null=True,
                               on_delete=models.CASCADE)
-    type = models.ForeignKey(PlacketTypeModel,
+    type = models.ForeignKey('SubSideBarModel',
                                related_name='plackettype', blank=True, null=True,
                                on_delete=models.CASCADE)
 
+    placketname = models.CharField(max_length=400, null=True, blank=True)
+    placket_img = models.ImageField(upload_to=upload_location, null=True, blank=True)
+
     def __str__(self):
         return f'{self.fabric} {self.type}'
+
+class PocketModel(models.Model):
+    fabric = models.ForeignKey(FabricModel,
+                               related_name='pocket', blank=True, null=True,
+                               on_delete=models.CASCADE)
+    type = models.ForeignKey('StyleSideBarModel',
+                             related_name='plackettype', blank=True, null=True,
+                             on_delete=models.CASCADE)
+
+    pocketname = models.CharField(max_length=400, null=True, blank=True)
+    pocket_img = models.ImageField(upload_to=upload_location, null=True, blank=True)
 
 class CollarButtonModel(models.Model):
     name = models.CharField(max_length=50)
