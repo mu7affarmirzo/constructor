@@ -4,6 +4,22 @@ from modeltranslation.admin import TranslationAdmin
 from .models import *
 
 admin.site.register(FabricModel)
+# admin.site.register(SideBarModel)
+admin.site.register(SiluetStyleModel)
+# admin.site.register(SiluetObjModel)
+
+# admin.site.register(SleeveObjModel)
+admin.site.register(SleeveStyleModel)
+admin.site.register(CollarStyleModel)
+# admin.site.register(CollarStiffnessModel)
+# admin.site.register(CollarObjModel)
+# admin.site.register(CollarBandBtntModel)
+# admin.site.register(CollarBandHeightModel)
+# admin.site.register(CuffBtntModel)
+# admin.site.register(CuffObjModel)
+# admin.site.register(CuffStiffnessModel)
+admin.site.register(CuffStyleModel)
+
 # admin.site.register(StyleTypeModel)
 # admin.site.register(SleeveTypeModel)
 # admin.site.register(ShirtSleeveModel)
@@ -32,10 +48,10 @@ class SideBarAdmin(TranslationAdmin):
     pass
 admin.site.register(SideBarModel, SideBarAdmin)
 
-class SubSideBarAdmin(TranslationAdmin):
-    pass
-admin.site.register(SubSideBarModel, SubSideBarAdmin)
+# class SubSideBarAdmin(TranslationAdmin):
+#     pass
+# admin.site.register(SubSideBarModel, SubSideBarAdmin)
 
-class StyleSideBarAdmin(TranslationAdmin):
-    pass
-admin.site.register(StyleSideBarModel, StyleSideBarAdmin)
+# class StyleSideBarAdmin(TranslationAdmin):
+#     pass
+# admin.site.register(StyleSideBarModel, StyleSideBarAdmin)
