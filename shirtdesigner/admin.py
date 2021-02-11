@@ -5,8 +5,12 @@ from .models import *
 
 admin.site.register(FabricModel)
 # admin.site.register(SideBarModel)
+admin.site.register(StyleModel)
 admin.site.register(SiluetStyleModel)
 # admin.site.register(SiluetObjModel)
+
+admin.site.register(PlacketStyleModel)
+# admin.site.register(PlacketObjModel)
 
 # admin.site.register(SleeveObjModel)
 admin.site.register(SleeveStyleModel)
@@ -48,10 +52,20 @@ class SideBarAdmin(TranslationAdmin):
     pass
 admin.site.register(SideBarModel, SideBarAdmin)
 
-# class SubSideBarAdmin(TranslationAdmin):
-#     pass
-# admin.site.register(SubSideBarModel, SubSideBarAdmin)
+class SubSideBarAdmin(TranslationAdmin):
+    pass
+admin.site.register(SubSideBarModel, SubSideBarAdmin)
 
-# class StyleSideBarAdmin(TranslationAdmin):
-#     pass
-# admin.site.register(StyleSideBarModel, StyleSideBarAdmin)
+
+# class FooAdmin(admin.ModelAdmin):
+#     def render_change_form(self, request, context, *args, **kwargs):
+#         context['adminform'].form.fields['extra_foo'].queryset = Foo.objects.filter(extra=True)
+#         return super(FooAdmin, self).render_change_form(request, context, *args, **kwargs)
+#
+# admin.site.register(Foo, FooAdmin)
+
+
+
+class StyleSideBarAdmin(TranslationAdmin):
+    pass
+admin.site.register(StyleSideBarModel, StyleSideBarAdmin)

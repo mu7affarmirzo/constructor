@@ -7,8 +7,25 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.generics import ListAPIView
 # from rest_framework.filters import SearchFilter, OrderingFilter
 
-from shirtdesigner.models import SideBarModel, FabricModel
-from shirtdesigner.api.serializers import MenuSerializer, FabricSerializer
+from shirtdesigner.models import *
+from shirtdesigner.api.serializers import (
+    MenuSerializer,
+    FabricSerializer,
+    SiluetSerializer,
+    SleeveSerializer,
+PlacketSerializer,
+)
+
+class PlacketListView(ListAPIView):
+    queryset = PlacketStyleModel.objects.all()
+    serializer_class = PlacketSerializer
+    pagination_class = PageNumberPagination
+
+class SleeveListView(ListAPIView):
+    queryset = SleeveStyleModel.objects.all()
+    serializer_class = SleeveSerializer
+    pagination_class = PageNumberPagination
+
 
 class MenuListView(ListAPIView):
     queryset = SideBarModel.objects.all()
@@ -23,3 +40,9 @@ class FabricListView(ListAPIView):
     pagination_class = PageNumberPagination
     # filter_backends = (SearchFilter, OrderingFilter)
     # search_fields = ('title', 'body', 'author__username')
+
+
+class SilhouetteListView(ListAPIView):
+    queryset = SiluetStyleModel.objects.all()
+    serializer_class = SiluetSerializer
+    pagination_class = PageNumberPagination

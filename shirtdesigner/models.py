@@ -41,6 +41,48 @@ class FabricModel(models.Model):
     def __str__(self):
         return self.fabric
 
+# class SideBarModel(models.Model):
+#     icon = models.ImageField(upload_to=upload_location, null=True, blank=True)
+#     title = models.CharField(max_length=250, blank=True, null=True)
+#     url = models.CharField(max_length=250, blank=True, null=True)
+#     sub_stat = models.BooleanField(null=True, blank=True, default=True)
+#     search_url = models.URLField(null=True, blank=True)
+#     search_stat = models.BooleanField(null=True, blank=True, default=False)
+#     related_menu_stat = models.BooleanField(null=True, blank=True, default=True)
+#
+#     def __str__(self):
+#         return str(self.title)
+#
+# class SubSideBarModel(models.Model):
+#     global_menu = models.ForeignKey(SideBarModel, blank=True, null=True, on_delete=models.CASCADE, related_name='sub_bar')
+#     icon = models.ImageField(upload_to=upload_location, null=True, blank=True)
+#     title = models.CharField(max_length=250, blank=True, null=True)
+#     url = models.CharField(max_length=250, blank=True, null=True)
+#     sub_stat = models.BooleanField(null=True, blank=True, default=False)
+#     search_url = models.URLField(null=True, blank=True)
+#
+#     search_stat = models.BooleanField(null=True, blank=True, default=False)
+#
+#     def __str__(self):
+#         return str(self.title)
+# #
+# class StyleSideBarModel(models.Model):
+#     sub_side = models.ForeignKey(SubSideBarModel, blank=True, null=True, on_delete=models.CASCADE)
+#     icon = models.ImageField(upload_to=upload_location, null=True, blank=True)
+#     title = models.CharField(max_length=250, blank=True, null=True)
+#     url = models.CharField(max_length=250, blank=True, null=True)
+#     sub_stat = models.BooleanField(null=True, blank=True, default=False)
+#     search_url = models.CharField(max_length=250, blank=True, null=True)
+#
+#     search_stat = models.BooleanField(null=True, blank=True, default=False)
+#
+#     def __str__(self):
+#         return str(self.title)
+
+
+
+
+
 class SideBarModel(models.Model):
     icon = models.ImageField(upload_to=upload_location, null=True, blank=True)
     title = models.CharField(max_length=250, blank=True, null=True)
@@ -53,11 +95,55 @@ class SideBarModel(models.Model):
     def __str__(self):
         return str(self.title)
 
+class SubSideBarModel(models.Model):
+    global_menu = models.ForeignKey(SideBarModel, blank=True, null=True, on_delete=models.CASCADE, related_name='sub_list')
+    icon = models.ImageField(upload_to=upload_location, null=True, blank=True)
+    title = models.CharField(max_length=250, blank=True, null=True)
+    url = models.CharField(max_length=250, blank=True, null=True)
+    sub_stat = models.BooleanField(null=True, blank=True, default=False)
+    search_url = models.URLField(null=True, blank=True)
+    search_stat = models.BooleanField(null=True, blank=True, default=False)
+    related_menu = models.ForeignKey(SideBarModel, blank=True, null=True, on_delete=models.CASCADE, related_name='related_menu')
+
+    # class Meta:
+    #     app_label = 'tester_label'
+    def __str__(self):
+        return str(self.title)
+
+class StyleSideBarModel(models.Model):
+    sub_side = models.ForeignKey(SubSideBarModel, blank=True, null=True, on_delete=models.CASCADE, related_name='sub_side')
+    icon = models.ImageField(upload_to=upload_location, null=True, blank=True)
+    title = models.CharField(max_length=250, blank=True, null=True)
+    url = models.CharField(max_length=250, blank=True, null=True)
+    sub_stat = models.BooleanField(null=True, blank=True, default=False)
+    search_url = models.CharField(max_length=250, blank=True, null=True)
+    search_stat = models.BooleanField(null=True, blank=True, default=False)
+    related_menu = models.ForeignKey(SubSideBarModel, blank=True, null=True, on_delete=models.CASCADE, related_name='related_style' )
+
+    def __str__(self):
+        return str(self.title)
+
+
+
+
+# *****************Style Model********************
+
+class StyleModel(models.Model):
+    style_bar = models.ForeignKey(SideBarModel, related_name='model_style', on_delete=models.CASCADE, blank=True, null=True)
+    style_name = models.CharField(max_length=250,  null=True, blank=True)
+    icon = models.ImageField(upload_to=upload_location, null=True, blank=True)
+
+    def __str__(self):
+        return str(self.style_name)
+
+
+
 # *****************Siluet Model********************
 class SiluetStyleModel(models.Model):
     siluet_bar = models.ForeignKey(SideBarModel, related_name='siluet_style', on_delete=models.CASCADE, blank=True, null=True)
-    style_name = models.CharField(max_length=250,  null=True, blank=True)
+    style_name = models.CharField(max_length=250,  null=True, blank=True, verbose_name='Silhouette')
     icon = models.ImageField(upload_to=upload_location, null=True, blank=True)
+
 
     def __str__(self):
         return str(self.style_name)
@@ -69,7 +155,7 @@ class SiluetObjModel(models.Model):
 
 # *****************Sleeve Model********************
 class SleeveStyleModel(models.Model):
-    siluet_bar = models.ForeignKey(SideBarModel, related_name='sleeve_style', on_delete=models.CASCADE, blank=True,
+    sleeve_bar = models.ForeignKey(SideBarModel, related_name='sleeve_style', on_delete=models.CASCADE, blank=True,
                                    null=True)
     style_name = models.CharField(max_length=250, null=True, blank=True)
     icon = models.ImageField(upload_to=upload_location, null=True, blank=True)
@@ -94,11 +180,11 @@ class CollarStyleModel(models.Model):
     def __str__(self):
         return str(self.style_name)
 
-class CollarObjModel(models.Model):
-    style_collar = models.ForeignKey(CollarStyleModel, related_name='collar_obj', on_delete=models.CASCADE, blank=True,
-                                     null=True)
-    fabric = models.ForeignKey(FabricModel, related_name='collar_obj', on_delete=models.CASCADE, blank=True,
-                               null=True, )
+# class CollarObjModel(models.Model):
+#     style_collar = models.ForeignKey(default=CuffObjModel.objects, related_name='collar_obj', on_delete=models.CASCADE, blank=True,
+#                                      null=True)
+#     fabric = models.ForeignKey(FabricModel, related_name='collar_obj', on_delete=models.CASCADE, blank=True,
+#                                null=True, )
 
 class CollarBandHeightModel(models.Model):
     collar_bar = models.ForeignKey(SideBarModel, related_name='collar_band_height', on_delete=models.CASCADE, blank=True,
@@ -455,28 +541,3 @@ class BottomObjModel(models.Model):
 #
 #
 #
-# class SubSideBarModel(models.Model):
-#     global_menu = models.ForeignKey(SideBarModel, blank=True, null=True, on_delete=models.CASCADE, related_name='sub_bar')
-#     icon = models.ImageField(upload_to=upload_location, null=True, blank=True)
-#     title = models.CharField(max_length=250, blank=True, null=True)
-#     url = models.CharField(max_length=250, blank=True, null=True)
-#     sub_stat = models.BooleanField(null=True, blank=True, default=False)
-#     search_url = models.URLField(null=True, blank=True)
-#
-#     search_stat = models.BooleanField(null=True, blank=True, default=False)
-#
-#     def __str__(self):
-#         return str(self.title)
-#
-# class StyleSideBarModel(models.Model):
-#     sub_side = models.ForeignKey(SubSideBarModel, blank=True, null=True, on_delete=models.CASCADE)
-#     icon = models.ImageField(upload_to=upload_location, null=True, blank=True)
-#     title = models.CharField(max_length=250, blank=True, null=True)
-#     url = models.CharField(max_length=250, blank=True, null=True)
-#     sub_stat = models.BooleanField(null=True, blank=True, default=False)
-#     search_url = models.CharField(max_length=250, blank=True, null=True)
-#
-#     search_stat = models.BooleanField(null=True, blank=True, default=False)
-#
-#     def __str__(self):
-#         return str(self.title)
