@@ -14,7 +14,25 @@ from shirtdesigner.api.serializers import (
     SiluetSerializer,
     SleeveSerializer,
 PlacketSerializer,
+CollarSerializer,
+CuffSerializer,
+PocketSerializer
 )
+
+class PocketListView(ListAPIView):
+    queryset = PocketStyleModel.objects.all()
+    serializer_class = PocketSerializer
+    pagination_class = PageNumberPagination
+
+class CuffListView(ListAPIView):
+    queryset = CuffStyleModel.objects.all()
+    serializer_class = CuffSerializer
+    pagination_class = PageNumberPagination
+
+class CollarListView(ListAPIView):
+    queryset = CollarStyleModel.objects.all()
+    serializer_class = CollarSerializer
+    pagination_class = PageNumberPagination
 
 class PlacketListView(ListAPIView):
     queryset = PlacketStyleModel.objects.all()

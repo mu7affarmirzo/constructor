@@ -15,4 +15,7 @@ urlpatterns = [
     path('silhouette/', SilhouetteListView.as_view(), name='silhouette'),
     path('sleeve/', SleeveListView.as_view(), name='sleeve'),
     path('placket/', PlacketListView.as_view(), name='placket'),
+    path('collar/', CollarListView.as_view(), name='collar'),
+    path('cuff/', CuffListView.as_view(), name='cuff'),
+    path('pocket/', PocketListView.as_view(), name='pocket'),
 ]

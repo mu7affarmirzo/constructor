@@ -13,8 +13,23 @@ from shirtdesigner.models import (
     SleeveStyleModel,
     CollarStyleModel,
     CuffStyleModel,
-PlacketStyleModel,
+    PlacketStyleModel,
+PocketStyleModel,
 )
+class PocketSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PocketStyleModel
+        fields = '__all__'
+
+class CuffSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CuffStyleModel
+        fields = '__all__'
+
+class CollarSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CollarStyleModel
+        fields = '__all__'
 
 class PlacketSerializer(serializers.ModelSerializer):
     class Meta:
@@ -38,7 +53,7 @@ class StyleSideBarSerializer(serializers.ModelSerializer):
 
 
 class SubSideSerializer(serializers.ModelSerializer):
-    sub_side = StyleSideBarSerializer(many=True)
+    # sub_side = StyleSideBarSerializer(many=True)
     class Meta:
         model = SubSideBarModel
         fields = [
@@ -50,7 +65,7 @@ class SubSideSerializer(serializers.ModelSerializer):
             'search_stat',
             'search_url',
             # 'related_menu_stat',
-            'sub_side'
+            # 'sub_side'
         ]
 
 class MenuSerializer(serializers.ModelSerializer):
@@ -69,7 +84,7 @@ class MenuSerializer(serializers.ModelSerializer):
             'related_menu_stat',
 
         ]
-        depth = 2
+        # depth = 2
 
 
 
