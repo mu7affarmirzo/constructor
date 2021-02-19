@@ -47,3 +47,6 @@ class FabricSerializer(serializers.ModelSerializer):
     class Meta:
         model = FabricModel
         fields = '__all__'
+
+# class ShirtSerializer(serializers.ModelSerializer):
+

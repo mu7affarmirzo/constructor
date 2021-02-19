@@ -7,8 +7,13 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.generics import ListAPIView
 # from rest_framework.filters import SearchFilter, OrderingFilter
 
-from shirtdesigner.models import SideBarModel, FabricModel
+from shirtdesigner.models import *
+# from shirtdesigner.models import SideBarModel, FabricModel
 from shirtdesigner.api.serializers import MenuSerializer, FabricSerializer
+
+
+# f_collar = models.CollarModel.collar_img
+
 
 class MenuListView(ListAPIView):
     queryset = SideBarModel.objects.all()

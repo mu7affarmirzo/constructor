@@ -31,6 +31,7 @@ class FabricModel(models.Model):
     fineness = models.CharField(max_length=2, choices=SELECT_CHOICES, default=GOOD,)
     weight = models.CharField(max_length=2, choices=SELECT_CHOICES, default=GOOD,)
     weave = models.CharField(max_length=2, choices=SELECT_CHOICES, default=GOOD,)
+    fabric_image = models.ImageField(upload_to=upload_location, null=True, blank=True)
 
 
     class Meta:
@@ -148,18 +149,6 @@ class CollarTypeModel(models.Model):
     def __str__(self):
         return self.type
 
-# class CollarModel(models.Model):
-#     fabric = models.ForeignKey(FabricModel,
-#                               related_name='collar', blank=True, null=True,
-#                               on_delete=models.CASCADE)
-#     type = models.ForeignKey(CollarTypeModel,
-#                                related_name='collartype', blank=True, null=True,
-#                                on_delete=models.CASCADE)
-#
-#
-#     def __str__(self):
-#         return f'{self.fabric} {self.type}'
-
 class CollarModel(models.Model):
     fabric = models.ForeignKey(FabricModel,
                               related_name='collar', blank=True, null=True,
@@ -257,7 +246,6 @@ class PlacketButtonModel(models.Model):
     def __str__(self):
         return f'{self.name} {self.placketbtn}'
 
-
 class CollarThreadModel(models.Model):
     name = models.CharField(max_length=50)
     collorthr = models.ForeignKey(CollarTypeModel,
@@ -284,8 +272,6 @@ class PlacketThreadModel(models.Model):
 
     def __str__(self):
         return f'{self.name} {self.placketthr}'
-
-
 
 class SideBarModel(models.Model):
     icon = models.ImageField(upload_to=upload_location, null=True, blank=True)

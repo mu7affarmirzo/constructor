@@ -1,12 +1,13 @@
 [{
     "id":1,
     "icon":"",
-    "title_uz":"",
+    "title_uz":"placket",
     "title_ru":"",
     "title_en":"",
     "url":"/menu/id", /*for example*/
     "sub_stat":false,
     "sub_list":[],
+    ''
     "search_stat" : false,
     "search_url":"/search?id=",
     "rel_menu_id":3,
@@ -14,7 +15,7 @@
 },
 {
     "id":2,
-    "icon":"",
+    "icon":"collar",
     "title_uz":"",
     "title_ru":"",
     "title_en":"",
