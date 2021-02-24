@@ -18,4 +18,5 @@ urlpatterns = [
     path('collar/', CollarListView.as_view(), name='collar'),
     path('cuff/', CuffListView.as_view(), name='cuff'),
     path('pocket/', PocketListView.as_view(), name='pocket'),
+    path('test/', api_detail_blog_view, name='test'),
 ]

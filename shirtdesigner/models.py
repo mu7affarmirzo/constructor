@@ -1,8 +1,8 @@
 from django.db import models
 
 def upload_location(instance, filename):
-    file_path = 'shirt_designer/{author_id}/{title}-{filename}'.format(
-        author_id=str(instance.author.id), title=str(instance.title), filename=filename)
+    file_path = 'shirt_designer/-{filename}'.format(
+        filename=filename)
     return file_path
 
 
@@ -140,11 +140,12 @@ class CollarStyleModel(models.Model):
     def __str__(self):
         return str(self.style_name)
 
-# class CollarObjModel(models.Model):
-#     style_collar = models.ForeignKey(default=CuffObjModel.objects, related_name='collar_obj', on_delete=models.CASCADE, blank=True,
-#                                      null=True)
-#     fabric = models.ForeignKey(FabricModel, related_name='collar_obj', on_delete=models.CASCADE, blank=True,
-#                                null=True, )
+class CollarObjModel(models.Model):
+    style_collar = models.ForeignKey(CollarStyleModel, related_name='collar_obj', on_delete=models.CASCADE, blank=True,
+                                     null=True)
+    fabric = models.ForeignKey(FabricModel, related_name='collar_obj', on_delete=models.CASCADE, blank=True,
+                               null=True, )
+    image = models.ImageField(upload_to=upload_location, null=True, blank=True)
 
 class CollarBandHeightModel(models.Model):
     collar_bar = models.ForeignKey(SideBarModel, related_name='collar_band_height', on_delete=models.CASCADE, blank=True,
@@ -180,6 +181,7 @@ class CuffObjModel(models.Model):
                                      null=True)
     fabric = models.ForeignKey(FabricModel, related_name='cuff_obj', on_delete=models.CASCADE, blank=True,
                                null=True, )
+    image = models.ImageField(upload_to=upload_location, null=True, blank=True)
 
 
 class CuffBtntModel(models.Model):
@@ -209,6 +211,7 @@ class PocketObjModel(models.Model):
                                      null=True)
     fabric = models.ForeignKey(FabricModel, related_name='pocket_obj', on_delete=models.CASCADE, blank=True,
                                null=True, )
+    image = models.ImageField(upload_to=upload_location, null=True, blank=True)
 
 # *****************More details Model********************
 class PlacketStyleModel(models.Model):
@@ -225,6 +228,7 @@ class PlacketObjModel(models.Model):
                                      null=True)
     fabric = models.ForeignKey(FabricModel, related_name='placket_obj', on_delete=models.CASCADE, blank=True,
                                null=True, )
+    image = models.ImageField(upload_to=upload_location, null=True, blank=True)
 
 
 class YokeStyleModel(models.Model):
@@ -288,3 +292,40 @@ class BottomObjModel(models.Model):
                                      null=True)
     fabric = models.ForeignKey(FabricModel, related_name='bottom_obj', on_delete=models.CASCADE, blank=True,
                                null=True, )
+
+
+class CustomShirt(models.Model):
+    price = models.FloatField()
+    fabric = models.ForeignKey(FabricModel,on_delete=models.SET_NULL, blank=True, null=True)
+    silhouette = models.ForeignKey(SiluetStyleModel,on_delete=models.SET_NULL, blank=True, null=True)
+    sleeve_style = models.ForeignKey(SleeveStyleModel,on_delete=models.SET_NULL, blank=True, null=True)
+    front_style = models.ForeignKey(PlacketStyleModel,on_delete=models.SET_NULL, blank=True, null=True)
+    yoke_style = models.ForeignKey(YokeStyleModel,on_delete=models.SET_NULL, blank=True, null=True)
+    shoulders = models.ForeignKey(ShouldersStyleModel,on_delete=models.SET_NULL, blank=True, null=True)
+    back_style = models.ForeignKey(BackStyleModel,on_delete=models.SET_NULL, blank=True, null=True)
+    bottom_style = models.ForeignKey(BottomStyleModel,on_delete=models.SET_NULL, blank=True, null=True)
+    collar_style = models.ForeignKey(CollarStyleModel,on_delete=models.SET_NULL, blank=True, null=True)
+    collar_stiffness = models.ForeignKey(CollarStiffnessModel,on_delete=models.SET_NULL, blank=True, null=True)
+    collar_band_buttons = models.ForeignKey(CollarBandBtntModel,on_delete=models.SET_NULL, blank=True, null=True)
+    collar_band_height = models.ForeignKey(CollarBandHeightModel,on_delete=models.SET_NULL, blank=True, null=True)
+    cuff_buttons = models.ForeignKey(CuffBtntModel,on_delete=models.SET_NULL, blank=True, null=True)
+    cuff_style = models.ForeignKey(CuffStyleModel,on_delete=models.SET_NULL, blank=True, null=True)
+    cuff_stiffness = models.ForeignKey(CuffStiffnessModel,on_delete=models.SET_NULL, blank=True, null=True)
+    # monogram_place = models.ForeignKey(,on_delete=models.SET_NULL, blank=True, null=True)
+    # monogram_color = models.ForeignKey(FabricModel,on_delete=models.SET_NULL, blank=True, null=True)
+    # font_style = models.ForeignKey(FabricModel,on_delete=models.SET_NULL, blank=True, null=True)
+    # text = models.ForeignKey(FabricModel,on_delete=models.SET_NULL, blank=True, null=True)
+    pocket_style = models.ForeignKey(PocketStyleModel,on_delete=models.SET_NULL, blank=True, null=True)
+
+
+    # contrast:
+    #     collar
+    #     cuffs
+    #     sleeve
+    #     placket
+    # buttons = models.ForeignKey(FabricModel,on_delete=models.SET_NULL, blank=True, null=True)
+    # thread = models.ForeignKey(FabricModel,on_delete=models.SET_NULL, blank=True, null=True)
+    # buttonhole = models.ForeignKey(FabricModel,on_delete=models.SET_NULL, blank=True, null=True)
+    # elbow = models.ForeignKey(FabricModel,on_delete=models.SET_NULL, blank=True, null=True)
+    # epaulet = models.ForeignKey(FabricModel,on_delete=models.SET_NULL, blank=True, null=True)
+    # hand made = models.ForeignKey(FabricModel,on_delete=models.SET_NULL, blank=True, null=True)

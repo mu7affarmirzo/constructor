@@ -34,6 +34,9 @@ class CollarListView(ListAPIView):
     serializer_class = CollarSerializer
     pagination_class = PageNumberPagination
 
+    # x = CollarObjModel.objects.all()
+    # print(x)
+
 class PlacketListView(ListAPIView):
     queryset = PlacketStyleModel.objects.all()
     serializer_class = PlacketSerializer
@@ -64,3 +67,31 @@ class SilhouetteListView(ListAPIView):
     queryset = SiluetStyleModel.objects.all()
     serializer_class = SiluetSerializer
     pagination_class = PageNumberPagination
+
+
+
+
+@api_view(['GET', ])
+def api_detail_blog_view(request):
+
+
+    if request.method == "GET":
+        x = CollarObjModel.objects.all()
+        a = CollarObjModel.objects.values()
+        # a = x.filter(style_collar='Pointed collar')
+        # print(x[0].style_collar)
+        print(a['style_collar_id'=="2"])
+        # b = a.filter(style_collar_id=2)
+        b = a.filter(style_collar_id=2, fabric_id=90)
+        return Response(b)
+
+# @api_view(['POST',])
+# @permission_classes((IsAuthenticated,))
+# def api_manipulate_view(request):
+#
+#     if request.method == "POST":
+#         serializer = BlogPostSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
